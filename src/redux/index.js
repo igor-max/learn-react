@@ -1,21 +1,44 @@
 import {createStore} from "./../myRedux/createStore";
+// import {bindActionCreators} from "redux";
 import reducer from "./reducer";
 import * as usersAction from "./action/usersAction";
+import {bindActionCreators} from "./../myRedux/bindActionCreators";
 
 const store = createStore(reducer);
 
-console.log(store.getState());
+store.subscribes(() => {
+    console.log("newStore", store.getState());
+});
 
-store.dispatch(usersAction.createAddUserAction({
-    id: 3,
-    name: "Sally",
-    age: 33
-}));
+const boundActions = bindActionCreators(usersAction.createAddUserAction, store.dispatch);
+boundActions({
+    id: 4,
+    name: "Asdf"
+});
+boundActions({
+    id: 4,
+    name: "Asdf"
+});
 
-console.log(store.getState());
+// boundActions.createAddUserAction({
+//     id: 2,
+//     name: "Sally",
+//     age: 33
+// });
 
-store.dispatch(usersAction.createDeleteUserAction({
-    id: 0
-}));
+// boundActions.createAddUserAction({
+//     id: 3,
+//     name: "Frank",
+//     age: 44
+// });
 
-console.log(store.getState());
+// boundActions.createAddUserAction({
+//     id: 4,
+//     name: "Jassper",
+//     age: 55
+// });
+
+
+
+
+
