@@ -1,25 +1,21 @@
-import {createStore, bindActionCreators} from "redux";
+import {createStore} from "./../myRedux/createStore";
 import reducer from "./reducer";
 import * as usersAction from "./action/usersAction";
 
 const store = createStore(reducer);
 
-const boundActions = bindActionCreators(usersAction, store.dispatch);
-
 console.log(store.getState());
 
-boundActions.createAddUserAction({
+store.dispatch(usersAction.createAddUserAction({
     id: 3,
-    name: "sally",
+    name: "Sally",
     age: 33
-});
+}));
 
 console.log(store.getState());
 
-// boundActions.createJianAction();
+store.dispatch(usersAction.createDeleteUserAction({
+    id: 0
+}));
 
-// console.log(store.getState());
-
-// boundActions.createInputAction(33);
-
-// console.log(store.getState());
+console.log(store.getState());
