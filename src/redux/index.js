@@ -4,6 +4,10 @@ import * as usersAction from "./action/usersAction";
 
 const store = createStore(reducer);
 
+const res = store.subscribe(() => {
+    console.log("获取state", store.getState());
+})
+
 const boundActions = bindActionCreators(usersAction, store.dispatch);
 
 console.log(store.getState());
@@ -14,12 +18,9 @@ boundActions.createAddUserAction({
     age: 33
 });
 
-console.log(store.getState());
+res();
 
-// boundActions.createJianAction();
+boundActions.createDeleteUserAction({
+    id: 0
+});
 
-// console.log(store.getState());
-
-// boundActions.createInputAction(33);
-
-// console.log(store.getState());
